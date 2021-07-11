@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:umnofto/models/expenses.dart';
+import 'package:umnofto/services/database.dart';
 
 class AddExpenses extends StatefulWidget {
   const AddExpenses({Key? key}) : super(key: key);
@@ -17,12 +19,10 @@ class _AddExpensesState extends State<AddExpenses> {
       'Transportation',
       'Any'
     ];
-    // final _formKey = GlobalKey()
-    final titleController = TextEditingController();
-    final priceController = TextEditingController();
+    final _formKey = GlobalKey<FormState>();
+    final _titleController = TextEditingController();
+    final _priceController = TextEditingController();
     String _category = 'Personal';
-    String _title;
-    double _price;
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -48,9 +48,11 @@ class _AddExpensesState extends State<AddExpenses> {
               height: 20,
             ),
             Form(
+              key: _formKey,
               child: Column(
                 children: [
                   TextFormField(
+                    controller: _titleController,
                     decoration: InputDecoration(
                         labelText: 'Enter title',
                         labelStyle: TextStyle(color: Colors.grey),
@@ -81,7 +83,7 @@ class _AddExpensesState extends State<AddExpenses> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: priceController,
+                    controller: _priceController,
                     decoration: InputDecoration(
                         labelText: 'Enter price',
                         labelStyle: TextStyle(color: Colors.grey),
@@ -98,7 +100,28 @@ class _AddExpensesState extends State<AddExpenses> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(primary: Colors.black),
-              onPressed: () {},
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  Expenses newExpenses = new Expenses(
+                      title: _titleController.text,
+                      category: _category,
+                      createdAt: new DateTime.now(),
+                      price: double.parse(_priceController.text));
+                  UmnotfoDatabase.instance
+                      .addExpenses(newExpenses)
+                      .then((value) {
+                    setState(() {
+                      _titleController.clear();
+                      _priceController.clear();
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+                        content: Text('New Expenses Added Successfully')));
+                  }).catchError((error) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        new SnackBar(content: Text(error.toString())));
+                  });
+                }
+              },
               child: Text('Add Transaction'),
             )
           ],

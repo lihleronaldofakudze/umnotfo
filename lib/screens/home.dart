@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:umnofto/widgets/drawer.dart';
-import 'package:umnofto/widgets/transactions_list.dart';
+import 'package:umnofto/widgets/expenses_list.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class Home extends StatelessWidget {
           )
         ],
       ),
-      body: TransactionList(),
+      body: ExpensesList(),
     );
   }
 }
