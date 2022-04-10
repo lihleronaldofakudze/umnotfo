@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:umnofto/models/budget.dart';
 import 'package:umnofto/services/budget_db.dart';
 import 'package:umnofto/widgets/budget_list.dart';
-import 'package:umnofto/widgets/drawer.dart';
+import 'package:umnofto/widgets/drawer_widget.dart';
 import 'package:umnofto/widgets/loading.dart';
 
 class BudgetsScreen extends StatefulWidget {
@@ -33,7 +33,7 @@ class _BudgetsScreenState extends State<BudgetsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context),
+      drawer: drawerWidget(context),
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),

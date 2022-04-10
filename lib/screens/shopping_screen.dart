@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:umnofto/widgets/drawer.dart';
+import 'package:umnofto/widgets/drawer_widget.dart';
 import 'package:umnofto/widgets/shopping_list.dart';
 
 class ShoppingScreen extends StatelessWidget {
@@ -8,7 +8,7 @@ class ShoppingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context),
+      drawer: drawerWidget(context),
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),

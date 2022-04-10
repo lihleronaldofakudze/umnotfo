@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:umnofto/widgets/drawer.dart';
+import 'package:umnofto/widgets/drawer_widget.dart';
 import 'package:umnofto/widgets/expenses_list.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context),
+      drawer: drawerWidget(context),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
