@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:umnofto/widgets/drawer.dart';
 import 'package:umnofto/widgets/expenses_list.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,10 +18,9 @@ class Home extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         title: Text(
-          'Umnofto',
+          'Umnotfo Expenses',
           style: TextStyle(color: Colors.black),
         ),
-        centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {
@@ -26,7 +30,16 @@ class Home extends StatelessWidget {
               Icons.add,
               color: Colors.black,
             ),
-          )
+          ),
+          // IconButton(
+          //   onPressed: () {
+          //     // Navigator.pushNamed(context, '/add_transaction');
+          //   },
+          //   icon: Icon(
+          //     Icons.settings,
+          //     color: Colors.black,
+          //   ),
+          // )
         ],
       ),
       body: ExpensesList(),

@@ -12,6 +12,8 @@ Color getCategoryColor(String category) {
       return Colors.purple;
     case 'Any':
       return Colors.orange;
+    case 'Business':
+      return Colors.black;
   }
   return Colors.white;
 }

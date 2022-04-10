@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:umnofto/models/budget.dart';
 import 'package:umnofto/models/expenses.dart';
 import 'package:umnofto/models/grocery.dart';
+import 'package:umnofto/models/income.dart';
 
 class UmnotfoDatabase {
   //create an instance
@@ -43,6 +44,13 @@ class UmnotfoDatabase {
         '${ExpensesFields.price} $doubleType'
         ')');
 
+    await db.execute('CREATE TABLE $tableIncome ('
+        '${IncomeFields.id} $idType,'
+        '${IncomeFields.title} $textType,'
+        '${IncomeFields.createdAt} $textType,'
+        '${IncomeFields.price} $doubleType'
+        ')');
+
     //create table Grocery
     await db.execute('CREATE TABLE $tableGrocery ('
         '${GroceryFields.id} $idType,'
@@ -54,53 +62,8 @@ class UmnotfoDatabase {
     await db.execute('CREATE TABLE $tableBudget ('
         '${BudgetFields.id} $idType,'
         '${BudgetFields.description} $textType,'
-        '${BudgetFields.category} $textType,'
         '${BudgetFields.price} $doubleType'
         ')');
-  }
-
-  //add Expenses
-  Future<Expenses> addExpenses(Expenses expenses) async {
-    final db = await instance.database;
-    final id = await db.insert(tableExpenses, expenses.toJson());
-    return expenses.copy(id: id);
-  }
-
-  //read Expense
-  Future<Expenses> getExpense(int id) async {
-    final db = await instance.database;
-    final maps = await db.query(tableExpenses,
-        columns: ExpensesFields.values,
-        where: '${ExpensesFields.id} = ?',
-        whereArgs: [id]);
-
-    if (maps.isNotEmpty) {
-      return Expenses.fromJson(maps.first);
-    } else {
-      throw Exception('ID $id is not available');
-    }
-  }
-
-  //read All Expenses
-  Future<List<Expenses>> getExpenses() async {
-    final db = await instance.database;
-    final result = await db.query(tableExpenses);
-    return result.map((json) => Expenses.fromJson(json)).toList();
-  }
-
-  //update Expense
-  Future<int> updateExpense(Expenses expenses) async {
-    final db = await instance.database;
-
-    return db.update(tableExpenses, expenses.toJson(),
-        where: '${ExpensesFields.id} = ?', whereArgs: [expenses.id]);
-  }
-
-  //delete Expenses
-  Future<int> delete(int id) async {
-    final db = await instance.database;
-    return await db.delete(tableExpenses,
-        where: '${ExpensesFields.id} = ?', whereArgs: [id]);
   }
 
   //close database
